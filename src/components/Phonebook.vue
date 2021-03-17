@@ -1,19 +1,36 @@
 <template>
-  <contact-form @contact-submit="addContact" />
+  <div>
+    <v-row>
+      <v-col md="8" sm="12">
+        <contacts-table :contacts="contacts" />
+      </v-col>
+      <v-col md="4" sm="12">
+        <contact-form @contact-submit="addContact" />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
 import ContactForm from "./ContactForm";
+import ContactsTable from "./ContactsTable";
+
 export default {
-  components: { ContactForm },
+  components: { ContactForm, ContactsTable },
   data() {
     return {
       contacts: [],
     };
   },
+  mounted() {
+    const existingContacts = JSON.parse(localStorage.getItem("contacts"));
+    this.contacts = existingContacts || [];
+  },
   methods: {
     addContact(contact) {
       this.contacts.push(contact);
+
+      localStorage.setItem("contacts", JSON.stringify(this.contacts));
     },
   },
 };
