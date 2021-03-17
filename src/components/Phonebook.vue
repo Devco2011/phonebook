@@ -1,11 +1,16 @@
 <template>
-  <contact-form @contact-submit="addContact" />
+  <div>
+    <contacts-table :contacts="contacts" />
+    <contact-form @contact-submit="addContact" />
+  </div>
 </template>
 
 <script>
 import ContactForm from "./ContactForm";
+import ContactsTable from "./ContactsTable";
+
 export default {
-  components: { ContactForm },
+  components: { ContactForm, ContactsTable },
   data() {
     return {
       contacts: [],
